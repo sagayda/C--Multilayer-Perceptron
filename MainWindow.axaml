@@ -1,0 +1,174 @@
+<Window
+    x:Class="AvaloniaAccord.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:aa="clr-namespace:AvaloniaAccord"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Multilayer perceptron"
+    Width="900"
+    Height="600"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="DarkSlateGray"
+    mc:Ignorable="d">
+    <Grid Margin="10" ColumnDefinitions="3*,*">
+        <Grid RowDefinitions="5*,45*,30*">
+            <Grid Name="LayersGrid" ColumnDefinitions="80,40,40">
+                <Button
+                    Name="RegenerateNetwork"
+                    Grid.Column="0"
+                    Margin="5,0,4,0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Click="RegenerateNetwork_OnClick"
+                    Content="Update" />
+                <Button
+                    Name="AddLayerButton"
+                    Grid.Column="1"
+                    Margin="4,0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Click="AddLayerButton_OnClick"
+                    Content=" + " />
+                <Button
+                    Name="RemoveLayerButton"
+                    Grid.Column="2"
+                    Margin="4,0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Click="RemoveLayerButton_OnClick"
+                    Content=" - " />
+            </Grid>
+            <aa:NeuronStack
+                Name="NetworkView"
+                Grid.Row="1"
+                Margin="5"
+                HorizontalAlignment="Stretch"
+                BorderBrush="Black"
+                BorderThickness="2"
+                CornerRadius="4"
+                NeuronSize="35" />
+            <lvc:CartesianChart
+                Name="ErrorChart"
+                Grid.Row="2"
+                Margin="5"
+                Background="#383838"
+                BorderBrush="Black"
+                BorderThickness="2"
+                CornerRadius="4" />
+        </Grid>
+        <StackPanel Grid.Column="1" Margin="5">
+            <StackPanel.Styles>
+                <Style Selector="Button">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <!-- <Setter Property="Height" Value="20"/> -->
+                    <Setter Property="Margin" Value="4" />
+                    <Setter Property="FontSize" Value="15" />
+                    <!-- <Setter Property="FontWeight" Value="Bold"/> -->
+                </Style>
+            </StackPanel.Styles>
+
+            <TextBlock
+                FontSize="24"
+                FontWeight="Bold"
+                TextAlignment="Center">
+                Avalonia-Accord
+            </TextBlock>
+            <TextBlock Foreground="DimGray" TextAlignment="Center">Multilayer Perceptron</TextBlock>
+
+            <Separator Margin="0,6" />
+            <Button
+                Name="LearnButton"
+                Click="LearnButton_OnClick"
+                Content="Learn" />
+            <Button
+                Name="ResetLearningButton"
+                Click="ResetLearningButton_OnClick"
+                Content="Reset learning" />
+            <Grid
+                HorizontalAlignment="Stretch"
+                ColumnDefinitions="*,*"
+                ColumnSpan="2"
+                RowDefinitions="Auto,Auto">
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="4"
+                    Text="Desired error:" />
+                <NumericUpDown
+                    Name="DesiredErrorNumeric"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="4"
+                    FormatString="0.0000"
+                    Minimum="0"
+                    ShowButtonSpinner="False"
+                    Value="1" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="4"
+                    Text="Learning rate:" />
+                <NumericUpDown
+                    Name="LearningRateNumeric"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="4"
+                    FormatString="0.0000"
+                    Maximum="1"
+                    Minimum="0"
+                    ShowButtonSpinner="False"
+                    Value="0.1" />
+            </Grid>
+            <ToggleSwitch
+                Name="ShuffleSwitch"
+                OffContent="Do not shuffle data"
+                OnContent="Shuffle data" />
+            <ToggleSwitch
+                Name="ScaleSwitch"
+                OffContent="Do no scale data"
+                OnContent="Min-max scale data" />
+            <Separator Margin="0,6" />
+            <Grid Name="TestNumericsGrid" RowDefinitions="*,*,*,*">
+                <Grid.Styles>
+                    <Style Selector="NumericUpDown">
+                        <Setter Property="Margin" Value="0,2" />
+                    </Style>
+                </Grid.Styles>
+                <NumericUpDown
+                    Name="TestNumeric0"
+                    Grid.Row="0"
+                    FormatString="0.000"
+                    ShowButtonSpinner="False"
+                    Value="1" />
+                <NumericUpDown
+                    Name="TestNumeric1"
+                    Grid.Row="1"
+                    FormatString="0.000"
+                    ShowButtonSpinner="False"
+                    Value="1" />
+                <NumericUpDown
+                    Name="TestNumeric2"
+                    Grid.Row="2"
+                    FormatString="0.000"
+                    ShowButtonSpinner="False"
+                    Value="1" />
+                <NumericUpDown
+                    Name="TestNumeric3"
+                    Grid.Row="3"
+                    FormatString="0.000"
+                    ShowButtonSpinner="False"
+                    Value="1" />
+            </Grid>
+            <Button
+                Name="TestButton"
+                Click="TestButton_OnClick"
+                Content="Run test" />
+            <StackPanel Name="TestResultStackPanel" />
+        </StackPanel>
+    </Grid>
+
+</Window>
